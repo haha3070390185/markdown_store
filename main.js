@@ -34,11 +34,6 @@ function createWindow() {
     mainWindow = null;
   });
 
-  const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged;
-  if (isDev) {
-    mainWindow.webContents.openDevTools();
-  }
-
   createMenu();
 }
 

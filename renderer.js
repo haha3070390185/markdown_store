@@ -148,10 +148,10 @@ class MarkdownPreviewApp {
     if (this.welcomeScreen) {
       this.welcomeScreen.innerHTML = `
         <div class="welcome-content">
-          <span class="welcome-icon">⚠️</span>
-          <h1>初始化失败</h1>
-          <p style="color: #ef4444; white-space: pre-wrap;">${this.escapeHtml(message)}</p>
-          <p style="margin-top: 20px; font-size: 12px; color: var(--text-secondary);">
+          <div class="welcome-icon"></div>
+          <h2>初始化失败</h2>
+          <p style="color: var(--danger); white-space: pre-wrap;">${this.escapeHtml(message)}</p>
+          <p style="margin-top: 20px; font-size: 12px; color: var(--text-tertiary);">
             请检查开发者工具(F12)获取更多信息
           </p>
         </div>
@@ -288,11 +288,9 @@ class MarkdownPreviewApp {
     if (!items || items.length === 0) {
       this.fileList.innerHTML = `
         <div class="empty-state">
-          <span class="empty-icon">📭</span>
-          <p>此文件夹为空</p>
-          <p style="font-size: 12px; margin-top: 8px; color: var(--text-secondary);">
-            ${folderPath ? this.escapeHtml(folderPath) : ''}
-          </p>
+          <div class="empty-icon"></div>
+          <p>暂无文件</p>
+          <p class="empty-hint">请选择一个文件夹</p>
         </div>
       `;
       return;
@@ -303,19 +301,19 @@ class MarkdownPreviewApp {
     if (this.folderHistory.length > 1) {
       html += `
         <div class="file-item folder-back" data-action="back">
-          <span class="file-item-icon">⬆️</span>
+          <div class="file-item-icon"></div>
           <span class="file-item-name">返回上一级</span>
         </div>
       `;
     }
 
     items.forEach(item => {
-      const icon = item.type === 'folder' ? '📁' : '📄';
+      const iconClass = item.type === 'folder' ? 'folder' : 'file';
       const activeClass = this.currentFile === item.path ? 'active' : '';
       
       html += `
         <div class="file-item ${activeClass}" data-path="${this.escapeHtml(item.path)}" data-type="${item.type}">
-          <span class="file-item-icon">${icon}</span>
+          <div class="file-item-icon ${iconClass}"></div>
           <span class="file-item-name">${this.escapeHtml(item.name)}</span>
         </div>
       `;
@@ -394,9 +392,9 @@ class MarkdownPreviewApp {
       
       this.welcomeScreen.innerHTML = `
         <div class="welcome-content">
-          <span class="welcome-icon">❌</span>
-          <h1>预览失败</h1>
-          <p style="color: #ef4444;">${this.escapeHtml(message)}</p>
+          <div class="welcome-icon"></div>
+          <h2>预览失败</h2>
+          <p style="color: var(--danger);">${this.escapeHtml(message)}</p>
         </div>
       `;
     }
@@ -419,7 +417,7 @@ class MarkdownPreviewApp {
         console.log('Parsed via preload, html length:', html ? html.length : 0);
       } catch (error) {
         console.error('Error parsing markdown via preload:', error);
-        html = `<pre style="color: #ef4444;">Markdown解析错误: ${this.escapeHtml(error.message)}</pre><pre>${this.escapeHtml(markdown)}</pre>`;
+        html = `<pre style="color: var(--danger);">Markdown解析错误: ${this.escapeHtml(error.message)}</pre><pre style="margin-top: 16px; padding: 16px; background: var(--bg-secondary); border-radius: var(--radius-md); overflow-x: auto; border: 1px solid var(--border-color);">${this.escapeHtml(markdown)}</pre>`;
       }
     } else if (useCdn) {
       try {
@@ -427,12 +425,12 @@ class MarkdownPreviewApp {
         console.log('Parsed via CDN, html length:', html ? html.length : 0);
       } catch (error) {
         console.error('Error parsing markdown via CDN:', error);
-        html = `<pre style="color: #ef4444;">Markdown解析错误: ${this.escapeHtml(error.message)}</pre><pre>${this.escapeHtml(markdown)}</pre>`;
+        html = `<pre style="color: var(--danger);">Markdown解析错误: ${this.escapeHtml(error.message)}</pre><pre style="margin-top: 16px; padding: 16px; background: var(--bg-secondary); border-radius: var(--radius-md); overflow-x: auto; border: 1px solid var(--border-color);">${this.escapeHtml(markdown)}</pre>`;
       }
     } else {
       console.warn('No markdown parser available, showing raw text');
-      html = `<div style="padding: 20px; background: rgba(0,0,0,0.3); border-radius: 8px;">
-        <h3 style="color: #f59e0b; margin-bottom: 16px;">⚠️ Markdown解析器不可用</h3>
+      html = `<div style="padding: 20px; background: var(--bg-tertiary); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+        <h3 style="color: var(--warning); margin-bottom: 16px;">Markdown解析器不可用</h3>
         <p style="color: var(--text-secondary); margin-bottom: 16px;">
           无法加载Markdown解析库。这可能是由于：
         </p>
@@ -443,7 +441,7 @@ class MarkdownPreviewApp {
         </ul>
         <p style="color: var(--text-secondary);">以下是原始内容：</p>
       </div>
-      <pre style="margin-top: 16px; padding: 16px; background: rgba(0,0,0,0.2); border-radius: 8px; overflow-x: auto;">${this.escapeHtml(markdown)}</pre>`;
+      <pre style="margin-top: 16px; padding: 16px; background: var(--bg-secondary); border-radius: var(--radius-md); overflow-x: auto; border: 1px solid var(--border-color);">${this.escapeHtml(markdown)}</pre>`;
     }
     
     this.previewContent.innerHTML = html;
@@ -534,15 +532,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (welcomeScreen) {
       welcomeScreen.innerHTML = `
         <div class="welcome-content">
-          <span class="welcome-icon">⚠️</span>
-          <h1>应用初始化失败</h1>
-          <p style="color: #ef4444;">无法访问系统API</p>
-          <p style="margin-top: 20px; font-size: 12px; color: var(--text-secondary);">
+          <div class="welcome-icon"></div>
+          <h2>应用初始化失败</h2>
+          <p style="color: var(--danger);">无法访问系统API</p>
+          <p style="margin-top: 20px; font-size: 12px; color: var(--text-tertiary);">
             请确保在Electron环境中运行此应用<br>
             检查开发者工具(F12)获取更多信息
           </p>
-          <div style="margin-top: 20px; padding: 16px; background: rgba(0,0,0,0.2); border-radius: 8px; text-align: left;">
-            <p style="font-weight: 600; margin-bottom: 8px;">可能的原因：</p>
+          <div style="margin-top: 20px; padding: 16px; background: var(--bg-tertiary); border-radius: var(--radius-md); border: 1px solid var(--border-color); text-align: left;">
+            <p style="font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">可能的原因：</p>
             <ul style="margin-left: 20px; color: var(--text-secondary);">
               <li>preload.js未正确配置</li>
               <li>contextIsolation设置问题</li>
