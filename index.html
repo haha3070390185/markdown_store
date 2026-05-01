@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Markdown Preview</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-dot"></div>
+          <span class="logo-text">Markdown</span>
+        </div>
+        <button class="select-folder-btn" id="selectFolderBtn">
+          打开文件夹
+        </button>
+      </div>
+      <div class="sidebar-content">
+        <div class="breadcrumb" id="breadcrumb"></div>
+        <div class="file-list" id="fileList">
+          <div class="empty-state">
+            <div class="empty-icon"></div>
+            <p>暂无文件</p>
+            <p class="empty-hint">请选择一个文件夹</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main-content">
+      <div class="preview-header">
+        <div class="file-info" id="fileInfo">
+          <span class="file-name"></span>
+        </div>
+      </div>
+      <div class="preview-container" id="previewContainer">
+        <div class="welcome-screen" id="welcomeScreen">
+          <div class="welcome-content">
+            <div class="welcome-icon"></div>
+            <h2>Markdown Preview</h2>
+            <p>从左侧选择文件夹开始</p>
+          </div>
+        </div>
+        <div class="preview-content" id="previewContent"></div>
+      </div>
+    </div>
+  </div>
+  <script src="renderer.js"></script>
+</body>
+</html>
