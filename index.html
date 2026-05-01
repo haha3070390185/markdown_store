@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Markdown Preview</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <span class="logo-icon">📄</span>
+          <span class="logo-text">Markdown Preview</span>
+        </div>
+        <button class="select-folder-btn" id="selectFolderBtn">
+          <span class="btn-icon">📁</span>
+          <span>选择文件夹</span>
+        </button>
+      </div>
+      <div class="sidebar-content">
+        <div class="current-path" id="currentPath">请选择一个文件夹...</div>
+        <div class="breadcrumb" id="breadcrumb"></div>
+        <div class="file-list" id="fileList">
+          <div class="empty-state">
+            <span class="empty-icon">📂</span>
+            <p>请选择一个文件夹开始</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main-content">
+      <div class="preview-header">
+        <div class="file-info" id="fileInfo">
+          <span class="file-name">欢迎使用 Markdown Preview</span>
+        </div>
+      </div>
+      <div class="preview-container" id="previewContainer">
+        <div class="welcome-screen" id="welcomeScreen">
+          <div class="welcome-content">
+            <span class="welcome-icon">✨</span>
+            <h1>Markdown Preview</h1>
+            <p>从左侧选择一个 Markdown 文件开始预览</p>
+            <div class="features">
+              <div class="feature">
+                <span class="feature-icon">📝</span>
+                <span>实时预览</span>
+              </div>
+              <div class="feature">
+                <span class="feature-icon">🎨</span>
+                <span>液态玻璃设计</span>
+              </div>
+              <div class="feature">
+                <span class="feature-icon">💻</span>
+                <span>代码高亮</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="preview-content" id="previewContent"></div>
+      </div>
+    </div>
+  </div>
+  <script src="renderer.js"></script>
+</body>
+</html>
